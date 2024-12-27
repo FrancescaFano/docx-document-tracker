@@ -40,7 +40,7 @@ The `hooksPath` setting tells git to look for hooks in the tracked `hooks` folde
 You can of course also add this configuration settings to your global `.gitconfig` to make it available for all your projects.
 
 ## Usage
-	
+
 ### Recommended writing methods
 While writing your document in MS Word, stick to some basic rules to avoid problems with document loading times, crashes and other stuff that people keep complaining about. Here are some of those as an entry point:
 
