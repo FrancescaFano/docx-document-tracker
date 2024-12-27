@@ -12,31 +12,30 @@ To generate meaningful and human-readable diffs, the following packages should b
 * [Github Desktop](https://desktop.github.com) (optional)  
   This is a really handy `git` GUI client for Windows which eases repository management and committing. Its use is highly recommended, but every other GUI will likely work, too.
 
-* [Pandoc](https://pandoc.org/)  
-  This will generate nicely formatted text-diffs in `markdown` syntax from `.docx`. Pandoc is a powerful conversion library which supports a large variety of office features.
-
-* [PDFMiner](https://pypi.org/project/pdfminer/)  
-  Generates very basic text-diffs from `.pdf` files. Note that text in vector images (e.g., `.emf`) will in some cases also be extracted and can mess up the diff view.
-
-Please make sure that these commands are included in `PATH` and can be executed from the command line.
-
 ## Installation
-Download the latest release or clone this repository to your local machine and run `setup.sh`.  
+Download the latest release or clone this repository to your local machine and run `setup.sh`.
 This script will create the following entries in the projects `.git\config`:
 
-    [diff "pandoc"]
-      textconv = pandoc --to=markdown 
+    [diff "docx"]
+      textconv = tools/pandoc --from=docx --to=markdown --track-changes=all
+      prompt = false
+      binary = true
+    [diff "pptx"]
+      textconv = sh -c 'tools/pptx2md --disable-image --disable-wmf "$0" -o ~/.cache/git/presentation.md >/dev/null && cat ~/.cache/git/presentation.md'
+      cachetextconv = true
       prompt = false
       binary = true
     [diff "pdf"]
-      textconv = pdf2txt.py
+      textconv = sh -c 'tools/pdftotext -simple -enc UTF-8 "$0" -'
+      cachetextconv = true
+      prompt = false
       binary = true
     [core]
-      hooksPath = hooks
+      hooksPath = tools/hooks
 
 This configuration will enable the generation of user-readable diffs inside of Github Desktop.
 
-The `hookPath` setting tells git to look for hooks in the tracked `hooks` folder. See [Publishing](#publishing-your-document) for an explanation of the included `post-commit` hook.
+The `hooksPath` setting tells git to look for hooks in the tracked `hooks` folder. See [Publishing](#publishing-your-document) for an explanation of the included `post-commit` hook.
 
 You can of course also add this configuration settings to your global `.gitconfig` to make it available for all your projects.
 
@@ -54,6 +53,13 @@ While writing your document in MS Word, stick to some basic rules to avoid probl
   If you want to follow this guide, you can add a linked image to your document via  
   ```Insert > Quick Parts > Fields > IncludePicture```  
   Enter `images/YourImageName.extension` into the `File Name` field and you're ready to go. 
+
+### Tools
+You can find several helpful scripts in the `tools` directory. Among them are the three binaries that provide human-readable diffs for Microsoft Word documents, PDFs and Microsoft PowerPoint presentations.
+
+Further, you will find a small Python project called `py-pdf` which includes scripts to manipulate PDF files generated from your document. These allow you to modify and tailor the PDF TOC to your needs and to replace bitmap graphics embedded in the PDF with vector images.
+
+See the corresponding `ReadMe` files.
 
 ### Publishing your document
 This package comes with two pre-configured automatic release methods:
