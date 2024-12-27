@@ -1,10 +1,10 @@
 # .docx Document Tracker
-This is a sample `git` project to demonstate how to track progress on a thesis/report or whatever else document written in the Microsoft Office Word `.docx` file format.  
+This is a sample `git` project to demonstrate how to track progress on a thesis/report or whatever else document written in the Microsoft Office Word `.docx` file format.  
 It is primarily intended to work on Microsoft Windows operating systems; functionality on other platforms has not been tested.
 
 ## Requirements
 Tracking your Microsoft Office-based thesis with `git` works best with [Github Desktop](https://desktop.github.com).
-To generate meaningful and human-readable diffs, the following packages should be installed on your dektop:
+To generate meaningful and human-readable diffs, the following packages should be installed on your desktop:
 
 * [Git for Windows](https://git-scm.com/download/win)  
   The Windows distribution of `git`. Make sure to enable Linux bash commands during the installation process.
