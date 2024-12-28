@@ -34,6 +34,7 @@ This script will create the following entries in the projects `.git\config`:
       hooksPath = tools/hooks
 
 This configuration will enable the generation of user-readable diffs inside of Github Desktop.
+Note: Do not forget to unpack `pandoc.zip` in the `tools` folder.
 
 The `hooksPath` setting tells git to look for hooks in the tracked `hooks` folder. See [Publishing](#publishing-your-document) for an explanation of the included `post-commit` hook.
 
